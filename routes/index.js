@@ -8,7 +8,7 @@ var exec = require('child_process').exec;
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  var yourscript = exec('sh dit.sh',
+  var yourscript = exec('sh dit.sh "Hello world!"',
         (error, stdout, stderr) =>
         {
                 console.log(`${stdout}`);

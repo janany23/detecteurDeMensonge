@@ -1,4 +1,4 @@
 #!/bin/bash
-
-echo "Hello world !"
-pico2wave   -w   helloworld.wav    "Hello world, happy new year, my tailor is rich oups "
+pico2wave -l fr-FR -w /tmp/test.wav "$1"
+aplay -q /tmp/test.wav
+rm /tmp/test.wav
