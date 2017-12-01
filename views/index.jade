@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  button(id='getQuestions', href='/questions') Nos questions
+  script(type='text/javascript').
+    $('#getQuestions').on('click', function () {
+      window.location.href = '/questions';
+    });

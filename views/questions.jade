@@ -1,0 +1,57 @@
+//Created by Janany on 23/11/2017.
+
+extends layout
+
+block content
+    h1= title
+    //p Welcome to #{title}
+
+    .container
+        button(id='addQuestion', data-toggle='modal', data-target='#myModal') Ajouter une question
+        hr
+
+        table.table
+            thead
+                tr
+                    th N°
+                    th Question
+            tbody
+                each mongo_result, i in questions
+                    tr
+                        td= (i+1)
+                        td= mongo_result.intitule
+
+    // Modal
+    #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Ajouter une question à laquelle on peut y répondre que par oui ou non
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    .form-group
+                        |Intitulé de la question
+                        input.form-control(type='text', name='question', id='inputQuestion')
+                        br
+                .modal-footer
+                    button.btn.btn-danger(type='button', data-dismiss='modal') Annuler
+                    button.btn.btn-success(id='sendQuestion', type='button') Envoyer
+    script(type='text/javascript').
+        $(document).ready(function () {
+
+                $('#sendQuestion').on('click', function() {
+                    if ($('#inputQuestion').val() != '') {
+                        $('.form-group').removeClass('has-error');
+                        var parameters = { intitule : $('#inputQuestion').val() };
+                        $.post('/questions/add', parameters, function () {
+                            location.reload();
+                        });
+
+                    } else {
+                        $('.form-group').addClass('has-error');
+                    }
+                });
+
+        })
+
