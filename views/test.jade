@@ -1,0 +1,40 @@
+//
+   Created by Janany on 01/12/2017.
+
+extends layout
+
+block content
+    h1= title
+    //p Welcome to #{title}
+
+    .container
+
+
+        table.table
+            thead
+                tr
+                    th N°
+                    th Question
+                    th Play
+            tbody
+                each mongo_result, i in questions
+                    tr
+                        td= (i+1)
+                        td= mongo_result.intitule
+                        td
+                            button(class='playQuestion', data-questionid=""+mongo_result._id+"" data-toggle='modal', data-target='#myModal') Play
+
+
+    script(type='text/javascript').
+        $(document).ready(function () {
+
+            $('.playQuestion').on('click', function() {
+                var parameters = { 'questionId' : $(this).data('questionid') };
+                $.get('/test/playQuestion/', parameters, function () {
+
+                });
+
+            });
+
+        })
+

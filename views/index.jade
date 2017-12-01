@@ -3,7 +3,11 @@ extends layout
 block content
   h1= title
   button(id='getQuestions', href='/questions') Nos questions
+  button(id='goTest', href='/test') Lancer le test
   script(type='text/javascript').
     $('#getQuestions').on('click', function () {
       window.location.href = '/questions';
+    });
+    $('#goTest').on('click', function () {
+      window.location.href = '/test';
     });
