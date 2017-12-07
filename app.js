@@ -14,6 +14,16 @@ var test = require('./routes/test');
 var app = express();
 
 
+var SerialPort = require('serialport');
+var serialport = new SerialPort("/dev/cu.wchusbserial1410");
+serialport.on('open', function(){
+  console.log('Serial Port Opend');
+  serialport.on('data', function(data){
+    console.log(data[0]);
+  });
+});
+
+
 
 // connexion à la base de données mongodb
 var db = require('./routes/mongo')
