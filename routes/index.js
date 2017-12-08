@@ -10,4 +10,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Détecteur de mensonges' });
 });
 
+router.post('/hello', function(req, res, next) {
+  res.render('index', { title: 'Détecteur de mensonges' });
+  console.log(req.body);
+  console.log(req.query);
+});
+
 module.exports = router;

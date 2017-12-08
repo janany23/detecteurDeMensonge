@@ -30,13 +30,13 @@ router.get('/', function(req, res, next) {
 router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
 
-    console.log(req.query.questionId);
+   // console.log(req.query.questionId);
     var id = req.query.questionId;
-    console.log("id : "+id);
+   // console.log("id : "+id);
     //var question = connection.questions.findOne({ "_id" : new ObjectId(req.body.questionId)});
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
+        //console.log(result);
         var yourscript = exec('sh dit.sh '+result.intitule,
                     (error, stdout, stderr) =>
                 {
@@ -61,6 +61,14 @@ router.get('/playQuestion', function(req, res, next) {
 
     //console.log(question);
     //res.redirect('/');
+});
+
+router.post('/postResponse', function(req, res, next) {
+    console.log('on passe dans le post');
+    console.log(req.body);
+    console.log(req.query);
+    res.sendStatus(200);
+    //res.end(200);
 });
 
 module.exports = router;

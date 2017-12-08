@@ -14,17 +14,6 @@ var test = require('./routes/test');
 var app = express();
 
 
-var SerialPort = require('serialport');
-var serialport = new SerialPort("/dev/cu.wchusbserial1410");
-serialport.on('open', function(){
-  console.log('Serial Port Opend');
-  serialport.on('data', function(data){
-    console.log(data[0]);
-  });
-});
-
-
-
 // connexion à la base de données mongodb
 var db = require('./routes/mongo')
 db.establishConnection();
@@ -84,15 +73,15 @@ var server = require('http').Server(app);
 server.listen(3001);
 
 // Chargement de socket.io
-var io = require('socket.io').listen(server);
-// Quand un client se connecte, on le note dans la console
-io.sockets.on('connection', function (socket) {
-  console.log('Un client est connecté !');
-  io.connectedStatus = true;
-  socket.on('disconnect', function(mess){
-    io.connectedStatus = false;
-  });
-});
-app.set('socketio', io);
+//var io = require('socket.io').listen(server);
+//// Quand un client se connecte, on le note dans la console
+//io.sockets.on('connection', function (socket) {
+//  console.log('Un client est connecté !');
+//  io.connectedStatus = true;
+//  socket.on('disconnect', function(mess){
+//    io.connectedStatus = false;
+//  });
+//});
+//app.set('socketio', io);
 
 module.exports = app;
