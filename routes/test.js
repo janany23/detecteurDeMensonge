@@ -34,7 +34,7 @@ router.get('/playQuestion', function(req, res, next) {
         if (err) throw err;
         var question = result[0].intitule;
         console.log(question);
-        exec('sh dit.sh '+ question, function (error, stdout, stderr)
+        exec('sh dit.sh "'+ question + '"', function (error, stdout, stderr)
             {
                 console.log(stdout);
                 console.log(stderr);
