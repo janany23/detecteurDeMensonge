@@ -3,7 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
-var db = require('./mongo')
+var db = require('./mongo');
 var exec = require('child_process').exec;
 var ObjectId = require('mongodb').ObjectID;
 
@@ -29,30 +29,29 @@ router.get('/', function(req, res, next) {
 /* ADD a question. */
 router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
-
-   // console.log(req.query.questionId);
     var id = req.query.questionId;
-   // console.log("id : "+id);
-    //var question = connection.questions.findOne({ "_id" : new ObjectId(req.body.questionId)});
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
-        var yourscript = exec('sh dit.sh '+ result.intitule);
-        //         , (error, stdout, stderr) => {
-        //         console.log(`${stdout}`);
-        // console.log(`${stderr}`);
-        // if (error !== null) {
-        //     console.log(`exec error: ${error}`);
-        // }
-        res.redirect('/');
-    });
-        //questions.forEach(function(obj, i) {
-        //    console.log(
-        //        "ID : "  + obj._id.toString() + "\n"
-        //        + "Question "+(i+1)+" : " + obj.intitule + "\n"
-        //    );
-        //});
+        var question = result[0].intitule;
+        exec('sh dit.sh '+ question, function (error, stdout, stderr)
+            {
+                console.log(stdout);
+                console.log(stderr);
+                if (error !== null) {
+                    console.log('exec error:' + error);
+                }
+            }
+        );
 
+    });
+
+    //questions.forEach(function(obj, i) {
+    //    console.log(
+    //        "ID : "  + obj._id.toString() + "\n"
+    //        + "Question "+(i+1)+" : " + obj.intitule + "\n"
+    //    );
+    //});
+    res.redirect('/');
     //});
 
     //console.log(question);

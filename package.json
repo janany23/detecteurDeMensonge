@@ -16,6 +16,7 @@
     "morgan": "~1.6.1",
     "net": "^1.0.2",
     "objectid": "^3.2.1",
+    "progress": "^2.0.0",
     "request": "^2.83.0",
     "serialport": "^6.0.4",
     "serve-favicon": "~2.3.0",
