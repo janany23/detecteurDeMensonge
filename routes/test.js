@@ -36,27 +36,23 @@ router.get('/playQuestion', function(req, res, next) {
     //var question = connection.questions.findOne({ "_id" : new ObjectId(req.body.questionId)});
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
         if (err) throw err;
-        //console.log(result);
-        var yourscript = exec('sh dit.sh '+result.intitule,
-                    (error, stdout, stderr) =>
-                {
-                    console.log(`${stdout}`);
-            console.log(`${stderr}`);
-            if (error !== null) {
-                console.log(`exec error: ${error}`);
-            }
-        }
-            );
-
+        console.log(result);
+        var yourscript = exec('sh dit.sh '+ result.intitule);
+        //         , (error, stdout, stderr) => {
+        //         console.log(`${stdout}`);
+        // console.log(`${stderr}`);
+        // if (error !== null) {
+        //     console.log(`exec error: ${error}`);
+        // }
+        res.redirect('/');
     });
-
         //questions.forEach(function(obj, i) {
         //    console.log(
         //        "ID : "  + obj._id.toString() + "\n"
         //        + "Question "+(i+1)+" : " + obj.intitule + "\n"
         //    );
         //});
-        res.redirect('/');
+
     //});
 
     //console.log(question);
