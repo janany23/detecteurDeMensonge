@@ -9,6 +9,9 @@ block content
 
     .container
 
+        button(id='addQuestion', data-toggle='modal', data-target='#myModal') Ajouter une question
+        hr
+
 
         table.table
             thead
@@ -16,25 +19,84 @@ block content
                     th N°
                     th Question
                     th Play
+                    th Réponse
+                    th Résultat
             tbody
                 each mongo_result, i in questions
                     tr
                         td= (i+1)
                         td= mongo_result.intitule
                         td
-                            button(class='playQuestion', data-questionid=""+mongo_result._id+"" data-toggle='modal', data-target='#myModal') Play
+                            button(class='playQuestion', data-questionid=""+mongo_result._id+"")
+                                span.glyphicon.glyphicon-play(aria-hidden='true')
 
+                        td= mongo_result.reponse
+                        td= mongo_result.resultat
+        he
+        button(id='finishTest') Terminer le test
 
+    // Modal
+    #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Ajouter une question à laquelle on peut y répondre que par oui ou non
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                .modal-body
+                    .form-group
+                        | Intitulé de la question
+                        input.form-control(type='text', name='question', id='inputQuestion')
+                        br
+                .modal-footer
+                    button.btn.btn-danger(type='button', data-dismiss='modal') Annuler
+                    button.btn.btn-success(id='sendQuestion', type='button') Envoyer
+
+    script(src='/javascripts/socket.io/socket.io.js')
     script(type='text/javascript').
         $(document).ready(function () {
+
+            var socket = io("http://localhost:3001");
+
+            socket.on('connect', function () {
+                console.log('The server is ready!');
+            });
+
+            // on msg
+            socket.on('msg', function (data) {
+
+                // log the message
+                console.log(data);
+
+                // send message
+                socket.emit('msg', 'hello server');
+            });
+
+            $('#sendQuestion').on('click', function () {
+                if ($('#inputQuestion').val() != '') {
+                    $('.form-group').removeClass('has-error');
+                    var parameters = {intitule: $('#inputQuestion').val()};
+                    $.post('/questions/add', parameters, function () {
+                        location.reload();
+                    });
+
+                } else {
+                    $('.form-group').addClass('has-error');
+                }
+            });
+
 
             $('.playQuestion').on('click', function() {
                 var parameters = { 'questionId' : $(this).data('questionid') };
                 $.get('/test/playQuestion/', parameters, function () {
 
                 });
-
             });
 
+            $('#finishTest').on('click', function () {
+                window.location.href = '/';
+            });
+            
         })
+
 

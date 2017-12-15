@@ -12,12 +12,12 @@ router.get('/', function(req, res, next) {
     connection.collection("questions").find().toArray(function (error, questions) {
         if (error) throw error;
 
-        questions.forEach(function(obj, i) {
-            console.log(
-                "ID : "  + obj._id.toString() + "\n"
-                + "Question "+(i+1)+" : " + obj.intitule + "\n"
-            );
-        });
+        //questions.forEach(function(obj, i) {
+        //    console.log(
+        //        "ID : "  + obj._id.toString() + "\n"
+        //        + "Question "+(i+1)+" : " + obj.intitule + "\n"
+        //    );
+        //});
         res.render('questions', {
             questions: questions
         });
@@ -28,8 +28,8 @@ router.get('/', function(req, res, next) {
 router.post('/add', function(req, res, next) {
     var connection = db.getconnection();
     //console.log(req.body.intitule);
-    connection.collection('questions').insert({ "intitule" : req.body.intitule });
-    res.redirect('/');
+    connection.collection('questions').insert({ "intitule" : req.body.intitule, 'resultat':'', 'reponse':'' });
+    res.redirect('/test/');
 });
 
 module.exports = router;

@@ -73,15 +73,22 @@ var server = require('http').Server(app);
 server.listen(3001);
 
 // Chargement de socket.io
-//var io = require('socket.io').listen(server);
-//// Quand un client se connecte, on le note dans la console
-//io.sockets.on('connection', function (socket) {
-//  console.log('Un client est connecté !');
-//  io.connectedStatus = true;
-//  socket.on('disconnect', function(mess){
-//    io.connectedStatus = false;
-//  });
-//});
-//app.set('socketio', io);
+var io = require('socket.io').listen(server);
+// Quand un client se connecte, on le note dans la console
+io.sockets.on('connection', function (socket) {
+  console.log('client connected: ' + socket.id);
+
+  // send message to the current client
+  socket.emit('msg', 'hello new user');
+
+  // client disconnect handler
+  socket.on('disconnect', function () {
+
+    console.log('client disconnected: ' + socket.id);
+  });
+});
+
+
+app.set('socketio', io);
 
 module.exports = app;

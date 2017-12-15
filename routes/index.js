@@ -2,11 +2,14 @@ var express = require('express');
 var router = express.Router();
 var net = require('net');
 var io = require('socket.io');
+var db = require('./mongo')
 
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  var connection = db.getconnection();
+  connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
   res.render('index', { title: 'Détecteur de mensonges' });
 });
 
