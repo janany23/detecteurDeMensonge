@@ -63,49 +63,39 @@ router.get('/playQuestion', function(req, res, next) {
 router.post('/postResponse', function(req, res, next) {
     console.log(req.body);
     console.log(req.body.idQuestion);
-
-    //var connection = db.getconnection();
-    //connection.collection("questions").find().toArray(function (error, questions) {
-    //    if (error) throw error;
-    //    //console.log(questions[req.body.idQuestion].intitule);
-    //    connection.collection("questions").updateOne(
-    //        { intitule : questions[req.body.idQuestion].intitule },
-    //        {
-    //            intitule : questions[req.body.idQuestion].intitule,
-    //            resultat : req.body.reponse
-    //        }
-    //    );
-    //    questions.forEach(function(obj, i) {
-    //        console.log(
-    //            "ID : "  + obj._id.toString() + "\n"
-    //            + "Question "+(i+1)+" : " + obj.intitule + "\n"
-    //        );
-    //
-    //    });
-
-    //Socket client creation
-    var client = new net.Socket();
-
-    //socket client connect to raspberry server
-    client.connect(3001, "172.20.10.8", function () {
-        console.log('CONNECTED TO: 172.20.10.8:3001');
-        // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
-        client.write('POST');
-        //res.sendStatus(200);
-        //res.render('data.twig', { title: 'RECEIVE DATA FROM RASPBERRY' });
-    });
+    var question = req.body.idQuestion;
+    var resultat = req.body.resultat;
     var io = req.app.get('socketio');
-    client.on('data', function (data) {
-        console.log('DATA: ' + data);
-        console.log(io.connectedStatus);
-        if(io.connectedStatus==null || io.connectedStatus==true) {
-            io.emit('newData', {test:'hello world!'});
+    var connection = db.getconnection();
+    connection.collection("questions").find().toArray(function (error, questions) {
+        if (error) throw error;
+        //console.log(questions[req.body.idQuestion].intitule);
+        var nbQuestion = questions.length;
+        if (parseInt(question) < nbQuestion) {
+            connection.collection("questions").updateOne(
+                {intitule: questions[req.body.idQuestion].intitule},
+                {
+                    intitule: questions[req.body.idQuestion].intitule,
+                    resultat: req.body.resultat
+                }
+            );
+            io.emit('data', {resultat: resultat, question: question});
+            res.sendStatus(200);
+
         } else {
-            console.log('Destruction du socket');
-            client.destroy();
+            res.status(404);
         }
     });
-    res.sendStatus(200);
+
+});
+
+router.get('/finishTest', function(req, res, next) {
+    if (req.body.res == 'end'){
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(404);
+    }
+
 });
 
 module.exports = router;

@@ -31,7 +31,7 @@ block content
                                 span.glyphicon.glyphicon-play(aria-hidden='true')
 
                         td= mongo_result.reponse
-                        td= mongo_result.resultat
+                        td(id='td'+i)= mongo_result.resultat
         he
         button(id='finishTest') Terminer le test
 
@@ -58,18 +58,11 @@ block content
 
             var socket = io("http://localhost:3001");
 
-            socket.on('connect', function () {
-                console.log('The server is ready!');
-            });
 
-            // on msg
-            socket.on('msg', function (data) {
-
-                // log the message
-                console.log(data);
-
-                // send message
-                socket.emit('msg', 'hello server');
+            socket.on('data', function (data) {
+                var question = data.question;
+                var resultat = data.resultat
+                $('#td'+question).append(resultat);
             });
 
             $('#sendQuestion').on('click', function () {
@@ -94,7 +87,11 @@ block content
             });
 
             $('#finishTest').on('click', function () {
-                window.location.href = '/';
+                var parameters = {res : 'end'};
+                $.get('/test/finishTest/', parameters,  function(){
+                    window.location.href = '/';
+                });
+
             });
             
         })

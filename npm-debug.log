@@ -1,33 +1,33 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
-2 info using npm@3.10.10
-3 info using node@v6.11.3
+2 info using npm@3.6.0
+3 info using node@v5.7.1
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle detecteurDeMensonge@0.0.0~prestart: detecteurDeMensonge@0.0.0
 6 silly lifecycle detecteurDeMensonge@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle detecteurDeMensonge@0.0.0~start: detecteurDeMensonge@0.0.0
 8 verbose lifecycle detecteurDeMensonge@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle detecteurDeMensonge@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/Karine/Documents/CoursM2/IOT/detecteurDeMensonge/node_modules/.bin:/Users/Karine/Documents/CoursM2/IOT/mongodb/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Applications/MAMP/bin/php/php5.6.10/bin:~/Qt5.6.2/5.6/clang_64/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS
-10 verbose lifecycle detecteurDeMensonge@0.0.0~start: CWD: /Users/Karine/Documents/CoursM2/IOT/detecteurDeMensonge
+9 verbose lifecycle detecteurDeMensonge@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/Janany/Documents/M2/iOT/detecteurDeMensonge/node_modules/.bin:/opt/local/bin:/opt/local/sbin:/Users/Janany/Documents/M2/iOT/mongodb/bin:/Applications/MAMP/bin/php/php5.6.30/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Applications/MAMP/bin/php/php5.6.10/bin/:/usr/local/mysql/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/Janany/phalcon-devtools:/Applications/MAMP/Library/bin:/Users/Janany/phalcon-devtools
+10 verbose lifecycle detecteurDeMensonge@0.0.0~start: CWD: /Users/Janany/Documents/M2/iOT/detecteurDeMensonge
 11 silly lifecycle detecteurDeMensonge@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle detecteurDeMensonge@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle detecteurDeMensonge@0.0.0~start: Failed to exec start script
 14 verbose stack Error: detecteurDeMensonge@0.0.0 start: `node ./bin/www`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
-14 verbose stack     at emitTwo (events.js:106:13)
-14 verbose stack     at EventEmitter.emit (events.js:191:7)
-14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
-14 verbose stack     at emitTwo (events.js:106:13)
-14 verbose stack     at ChildProcess.emit (events.js:191:7)
-14 verbose stack     at maybeClose (internal/child_process.js:920:16)
-14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:230:5)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:232:16)
+14 verbose stack     at emitTwo (events.js:100:13)
+14 verbose stack     at EventEmitter.emit (events.js:185:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:100:13)
+14 verbose stack     at ChildProcess.emit (events.js:185:7)
+14 verbose stack     at maybeClose (internal/child_process.js:827:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 15 verbose pkgid detecteurDeMensonge@0.0.0
-16 verbose cwd /Users/Karine/Documents/CoursM2/IOT/detecteurDeMensonge
-17 error Darwin 16.6.0
+16 verbose cwd /Users/Janany/Documents/M2/iOT/detecteurDeMensonge
+17 error Darwin 16.7.0
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
-19 error node v6.11.3
-20 error npm  v3.10.10
+19 error node v5.7.1
+20 error npm  v3.6.0
 21 error code ELIFECYCLE
 22 error detecteurDeMensonge@0.0.0 start: `node ./bin/www`
 22 error Exit status 1
