@@ -90,6 +90,8 @@ router.post('/postResponse', function(req, res, next) {
 });
 
 router.get('/finishTest', function(req, res, next) {
+    var connection = db.getconnection();
+    connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
     if (req.body.res == 'end'){
         res.sendStatus(200);
     } else {

@@ -8,8 +8,6 @@ var db = require('./mongo')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var connection = db.getconnection();
-  connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
   res.render('index', { title: 'Détecteur de mensonges' });
 });
 
