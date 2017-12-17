@@ -83,7 +83,10 @@ block content
             });
 
             $('#finishTest').on('click', function () {
-                window.location.href = '/';
+                $.get('/finishTest', function () {
+                    window.location.href = '/';
+                });
+
             });
 
         });

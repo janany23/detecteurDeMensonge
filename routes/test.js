@@ -93,7 +93,7 @@ router.post('/postResponse', function(req, res, next) {
 });
 
 router.get('/finishTest', function(req, res, next) {
-    $.get('127.0.0.1?state=OFF', function () {
+    $.get('172.20.10.3?state=OFF', function () {
 
     });
     // var connection = db.getconnection();
