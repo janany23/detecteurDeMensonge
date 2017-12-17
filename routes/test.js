@@ -93,8 +93,7 @@ router.post('/postResponse', function(req, res, next) {
 });
 
 router.get('/finishTest', function(req, res, next) {
-    var parameters = {'state': 'endSession'};
-    $.post('127.0.0.1', parameters, function () {
+    $.get('127.0.0.1?state=OFF', function () {
 
     });
     // var connection = db.getconnection();
