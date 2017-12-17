@@ -1,7 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url("../fonts/background.jpg");
+  /*background-image: url('/fonts/header-bg.jpg');*/
   background-size: cover;
   /*color: white;*/
   text-align: center;
@@ -10,4 +10,52 @@ body {
 
 a {
   color: #00B7FF;
+}
+
+h1#title{
+  font-weight: bold;
+  font-size: 60px;
+  color:#4040a1;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+}
+
+.container td{
+  text-align: left;
+}
+
+.buttonMain{
+  background-color: #4040a1;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 10px;
+  cursor: pointer;
+
+}
+
+.buttonSecondary{
+  background-color: #82b74b;
+  border: none;
+  color: white;
+  padding: 7px 22px;
+  float: left;
+  text-decoration: none;
+  display: inline-block;
+  margin: 20px 20px;
+  cursor: pointer;
+}
+
+#imgMain{
+  height: auto;
+  width: auto;
+  max-width: 400px;
+  max-height: 400px;
+  margin-bottom: 50px;
 }

@@ -3,7 +3,8 @@
  */
 var express = require('express');
 var router = express.Router();
-var db = require('./mongo')
+var ObjectId = require('mongodb').ObjectID;
+var db = require('./mongo');
 
 
 /* GET questions listing. */
@@ -19,6 +20,7 @@ router.get('/', function(req, res, next) {
         //    );
         //});
         res.render('questions', {
+            title: 'Questions',
             questions: questions
         });
     });
@@ -31,5 +33,14 @@ router.post('/add', function(req, res, next) {
     connection.collection('questions').insert({ "intitule" : req.body.intitule, 'resultat':'', 'reponse':'' });
     res.redirect('/test/');
 });
+
+/* DELETE a question. */
+router.post('/delete', function(req, res, next) {
+    var connection = db.getconnection();
+    console.log(req.body.id);
+    connection.collection('questions').deleteOne({ "_id" : ObjectId(req.body.id) });
+    res.redirect('/test/');
+});
+
 
 module.exports = router;

@@ -13,22 +13,9 @@ var url = require('url');
 
 /* GET questions listing. */
 router.get('/', function(req, res, next) {
-    // var url_parts = url.parse(request.url, true);
-    // var query = url_parts.query;
-
-
-
     var connection = db.getconnection();
     connection.collection("questions").find().toArray(function (error, questions) {
         if (error) throw error;
-        // var state = req.query.state; // $_GET["state"]
-        // console.log(state);
-        //
-        // if (state == "YES") {
-        //     console.log("yes");
-        // }else {
-        //     console.log("no");
-        // }
         //questions.forEach(function(obj, i) {
         //    console.log(
         //        "ID : "  + obj._id.toString() + "\n"
@@ -43,7 +30,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-/* ADD a question. */
+/* Play a question. */
 router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
 
@@ -100,6 +87,8 @@ router.post('/postResponse', function(req, res, next) {
             res.status(404);
         }
     });
+
+
 
 });
 

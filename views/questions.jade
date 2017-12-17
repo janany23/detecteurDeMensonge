@@ -2,21 +2,23 @@ extends layout
 
 block content
     h1= title
-    //p Welcome to #{title}
-    .container
-        button(id='addQuestion', data-toggle='modal', data-target='#myModal') Ajouter une question
-        hr
+    button(id='addQuestion', class='buttonSecondary', data-toggle='modal', data-target='#myModal') Ajouter une question
 
+    .container
         table.table
             thead
                 tr
                     th N°
                     th Question
+                    th Suppression
             tbody
                 each mongo_result, i in questions
                     tr
                         td= (i + 1)
                         td= mongo_result.intitule
+                        td
+                            button(class='deleteQuestion', data-questionid="" + mongo_result._id + "")
+                                span.glyphicon.glyphicon-trash(aria-hidden='true')
 
     // Modal
     #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
@@ -34,6 +36,7 @@ block content
                 .modal-footer
                     button.btn.btn-danger(type='button', data-dismiss='modal') Annuler
                     button.btn.btn-success(id='sendQuestion', type='button') Envoyer
+
     script(type='text/javascript').
         $(document).ready(function () {
 
@@ -50,4 +53,11 @@ block content
                 }
             });
 
-        })
+            $('.deleteQuestion').on('click', function () {
+                var parameters = {id: $(this).attr("data-questionid")};
+                $.post('/questions/delete', parameters, function () {
+                    location.reload();
+                });
+            });
+
+        });
