@@ -93,6 +93,7 @@ router.post('/postResponse', function(req, res, next) {
 });
 
 router.get('/finishTest', function(req, res, next) {
+    console.log('/finishTest');
     $.get('172.20.10.3?state=OFF', function () {
 
     });
@@ -103,7 +104,7 @@ router.get('/finishTest', function(req, res, next) {
     // } else {
     //     res.sendStatus(404);
     // }
-
+    res.redirect('/');
 });
 
 module.exports = router;
