@@ -1,12 +1,8 @@
-//
-   Created by Janany on 01/12/2017.
-
 extends layout
 
 block content
     h1= title
     //p Welcome to #{title}
-
     .container
 
         button(id='addQuestion', data-toggle='modal', data-target='#myModal') Ajouter une question
@@ -24,14 +20,14 @@ block content
             tbody
                 each mongo_result, i in questions
                     tr
-                        td= (i+1)
+                        td= (i + 1)
                         td= mongo_result.intitule
                         td
-                            button(class='playQuestion', data-questionid=""+mongo_result._id+"")
+                            button(class='playQuestion', data-questionid="" + mongo_result._id + "")
                                 span.glyphicon.glyphicon-play(aria-hidden='true')
 
                         td= mongo_result.reponse
-                        td(id='td'+i)= mongo_result.resultat
+                        td(id='td' + i)= mongo_result.resultat
         he
         button(id='finishTest') Terminer le test
 
@@ -62,7 +58,7 @@ block content
             socket.on('data', function (data) {
                 var question = data.question;
                 var resultat = data.resultat
-                $('#td'+question).append(resultat);
+                $('#td' + question).append(resultat);
             });
 
             $('#sendQuestion').on('click', function () {
@@ -79,8 +75,8 @@ block content
             });
 
 
-            $('.playQuestion').on('click', function() {
-                var parameters = { 'questionId' : $(this).data('questionid') };
+            $('.playQuestion').on('click', function () {
+                var parameters = {'questionId': $(this).data('questionid')};
                 $.get('/test/playQuestion/', parameters, function () {
 
                 });
@@ -88,8 +84,6 @@ block content
 
             $('#finishTest').on('click', function () {
                 window.location.href = '/';
-
             });
+
         });
-
-

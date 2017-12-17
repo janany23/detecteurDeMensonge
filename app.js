@@ -15,7 +15,7 @@ var app = express();
 
 
 // connexion à la base de données mongodb
-var db = require('./routes/mongo')
+var db = require('./routes/mongo');
 db.establishConnection();
 
 

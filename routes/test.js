@@ -8,13 +8,27 @@ var exec = require('child_process').exec;
 var ObjectId = require('mongodb').ObjectID;
 var net = require('net');
 var io = require('socket.io');
+var url = require('url');
 
 
 /* GET questions listing. */
 router.get('/', function(req, res, next) {
+    // var url_parts = url.parse(request.url, true);
+    // var query = url_parts.query;
+
+
+
     var connection = db.getconnection();
     connection.collection("questions").find().toArray(function (error, questions) {
         if (error) throw error;
+        // var state = req.query.state; // $_GET["state"]
+        // console.log(state);
+        //
+        // if (state == "YES") {
+        //     console.log("yes");
+        // }else {
+        //     console.log("no");
+        // }
         //questions.forEach(function(obj, i) {
         //    console.log(
         //        "ID : "  + obj._id.toString() + "\n"
@@ -90,13 +104,17 @@ router.post('/postResponse', function(req, res, next) {
 });
 
 router.get('/finishTest', function(req, res, next) {
-    var connection = db.getconnection();
-    connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
-    if (req.body.res == 'end'){
-        res.sendStatus(200);
-    } else {
-        res.sendStatus(404);
-    }
+    var parameters = {'state': 'endSession'};
+    $.post('127.0.0.1', parameters, function () {
+
+    });
+    // var connection = db.getconnection();
+    // connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
+    // if (req.body.res == 'end'){
+    //     res.sendStatus(200);
+    // } else {
+    //     res.sendStatus(404);
+    // }
 
 });
 

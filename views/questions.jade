@@ -1,11 +1,8 @@
-//Created by Janany on 23/11/2017.
-
 extends layout
 
 block content
     h1= title
     //p Welcome to #{title}
-
     .container
         button(id='addQuestion', data-toggle='modal', data-target='#myModal') Ajouter une question
         hr
@@ -18,7 +15,7 @@ block content
             tbody
                 each mongo_result, i in questions
                     tr
-                        td= (i+1)
+                        td= (i + 1)
                         td= mongo_result.intitule
 
     // Modal
@@ -31,7 +28,7 @@ block content
                         span(aria-hidden='true') ×
                 .modal-body
                     .form-group
-                        |Intitulé de la question
+                        | Intitulé de la question
                         input.form-control(type='text', name='question', id='inputQuestion')
                         br
                 .modal-footer
@@ -40,18 +37,17 @@ block content
     script(type='text/javascript').
         $(document).ready(function () {
 
-                $('#sendQuestion').on('click', function() {
-                    if ($('#inputQuestion').val() != '') {
-                        $('.form-group').removeClass('has-error');
-                        var parameters = { intitule : $('#inputQuestion').val() };
-                        $.post('/questions/add', parameters, function () {
-                            location.reload();
-                        });
+            $('#sendQuestion').on('click', function () {
+                if ($('#inputQuestion').val() != '') {
+                    $('.form-group').removeClass('has-error');
+                    var parameters = {intitule: $('#inputQuestion').val()};
+                    $.post('/questions/add', parameters, function () {
+                        location.reload();
+                    });
 
-                    } else {
-                        $('.form-group').addClass('has-error');
-                    }
-                });
+                } else {
+                    $('.form-group').addClass('has-error');
+                }
+            });
 
         })
-
