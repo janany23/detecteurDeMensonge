@@ -87,13 +87,9 @@ block content
             });
 
             $('#finishTest').on('click', function () {
-                var parameters = {res : 'end'};
-                $.get('/test/finishTest/', parameters,  function(){
-                    window.location.href = '/';
-                });
+                window.location.href = '/';
 
             });
-            
-        })
+        });
 
 

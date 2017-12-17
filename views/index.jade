@@ -2,8 +2,12 @@ extends layout
 
 block content
   h1= title
+  img.image(src='/images/image1.png')
   button(id='getQuestions', href='/questions') Nos questions
   button(id='goTest', href='/test') Lancer le test
+
+
+
   script(type='text/javascript').
     $('#getQuestions').on('click', function () {
       window.location.href = '/questions';
