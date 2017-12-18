@@ -100,17 +100,12 @@ router.get('/finishTest', function(req, res, next) {
     //     console.log(req);
     // });
 
-    var options = {
-        host: 'http://172.20.10.3:80?state=OFF',
-        port: '80',
-        path: '/',
-        method: 'GET'
-    };
-
-    var req = http.request(options, function(res) {
-        console.log(res);
+    var request = require('request');
+    request('http://172.20.10.3:80', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body); // Print the body of response.
+        }
     });
-    console.log(req);
     // var connection = db.getconnection();
     // connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
     // if (req.body.res == 'end'){
