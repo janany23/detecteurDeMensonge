@@ -52,9 +52,14 @@ router.get('/playQuestion', function(req, res, next) {
 
         request('http://172.20.10.3:80', function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                
-                console.log(JSON.parse(body).resulat); // Print the body of response.
+                console.log(body); // Print the body of response.
+                var res = JSON.parse(body);
+                console.log(res);
+                console.log(res.resultat);
 
+                var resp = JSON.stringify(body);
+                console.log(resp);
+                console.log(resp.resultat);
                 var io = req.app.get('socketio');
                 // var connection = db.getconnection();
                 // connection.collection("questions").updateOne(
