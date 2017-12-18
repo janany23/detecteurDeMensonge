@@ -55,11 +55,8 @@ router.get('/playQuestion', function(req, res, next) {
                 console.log(body); // Print the body of response.
                 var res = JSON.parse(body);
                 console.log(res);
-                console.log(res.resultat);
-
-                var resp = JSON.stringify(body);
-                console.log(resp);
-                console.log(resp.resultat);
+                console.log(res[0].resultat);
+                
                 var io = req.app.get('socketio');
                 // var connection = db.getconnection();
                 // connection.collection("questions").updateOne(
