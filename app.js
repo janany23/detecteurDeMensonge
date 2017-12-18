@@ -76,7 +76,7 @@ server.listen(3001);
 var io = require('socket.io').listen(server);
 
 // Quand un client se connecte, on le note dans la console
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
   console.log('client connected: ' + socket.id);
 
   // send message to the current client
