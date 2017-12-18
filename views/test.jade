@@ -57,7 +57,8 @@ block content
 
             socket.on('data', function (data) {
                 var question = data.question;
-                var resultat = data.resultat
+                var resultat = data.resultat;
+                console.log(resultat);
                 $('#td' + question).append(resultat);
             });
 
