@@ -9,6 +9,7 @@ var ObjectId = require('mongodb').ObjectID;
 var net = require('net');
 var io = require('socket.io');
 var url = require('url');
+var http = require('http');
 
 
 /* GET questions listing. */
@@ -94,10 +95,22 @@ router.post('/postResponse', function(req, res, next) {
 
 router.get('/finishTest', function(req, res, next) {
     console.log('/finishTest');
-    $.get('http://172.20.10.3:80?state=OFF', function (req, res) {
+    // $.get('http://172.20.10.3:80?state=OFF', function (req, res) {
+    //     console.log(res);
+    //     console.log(req);
+    // });
+
+    var options = {
+        host: 'http://172.20.10.3:80?state=OFF',
+        port: '80',
+        path: '/',
+        method: 'GET'
+    };
+
+    var req = http.request(options, function(res) {
         console.log(res);
-        console.log(req);
     });
+    console.log(req);
     // var connection = db.getconnection();
     // connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
     // if (req.body.res == 'end'){
