@@ -105,10 +105,7 @@ router.get('/playQuestion', function(req, res, next) {
 //             res.status(404);
 //         }
 //     });
-
-
-
-});
+// });
 
 router.get('/finishTest', function(req, res, next) {
     console.log('/finishTest');
