@@ -50,8 +50,21 @@ router.get('/playQuestion', function(req, res, next) {
             }
         );
 
-        $.get('/test/finishTest', function () {
+        request('http://172.20.10.3:80', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // console.log(response.body.resultat);
+                console.log(JSON.parse(body)); // Print the body of response.
 
+                var io = req.app.get('socketio');
+                // var connection = db.getconnection();
+                // connection.collection("questions").updateOne(
+                //     { _id: id},
+                //     {
+                //         resultat: 'test'//response.body.resultat
+                //     }
+                // );
+                io.emit('data', {resultat: 'test'});
+            }
         });
 
     });
@@ -99,22 +112,7 @@ router.get('/playQuestion', function(req, res, next) {
 router.get('/finishTest', function(req, res, next) {
     console.log('/finishTest');
 
-    request('http://172.20.10.3:80', function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // console.log(response.body.resultat);
-            console.log(JSON.parse(body)); // Print the body of response.
 
-            var io = req.app.get('socketio');
-            // var connection = db.getconnection();
-            // connection.collection("questions").updateOne(
-            //     { _id: id},
-            //     {
-            //         resultat: 'test'//response.body.resultat
-            //     }
-            // );
-            io.emit('data', {resultat: 'test'});
-        }
-    });
     res.redirect('/');
 });
 
