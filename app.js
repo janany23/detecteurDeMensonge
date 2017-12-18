@@ -70,7 +70,7 @@ app.use(function(err, req, res, next) {
 
 //creation du serveur d'emission de donnée
 var server = require('http').Server(app);
-server.listen(8004);
+server.listen(3001);
 
 // Chargement de socket.io
 var io = require('socket.io').listen(server);
