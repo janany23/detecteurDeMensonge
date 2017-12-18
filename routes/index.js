@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var net = require('net');
 var io = require('socket.io');
-var db = require('./mongo')
+var db = require('./mongo');
 
 
 
