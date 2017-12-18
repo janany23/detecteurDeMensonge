@@ -94,8 +94,9 @@ router.post('/postResponse', function(req, res, next) {
 
 router.get('/finishTest', function(req, res, next) {
     console.log('/finishTest');
-    $.get('http://172.20.10.3:80?state=OFF', function () {
-
+    $.get('http://172.20.10.3:80?state=OFF', function (req, res) {
+        console.log(res);
+        console.log(req);
     });
     // var connection = db.getconnection();
     // connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
