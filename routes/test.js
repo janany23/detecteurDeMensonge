@@ -9,7 +9,7 @@ var ObjectId = require('mongodb').ObjectID;
 var net = require('net');
 var io = require('socket.io');
 var url = require('url');
-var http = require('http');
+var request = require('request');
 
 
 /* GET questions listing. */
@@ -52,6 +52,23 @@ router.get('/playQuestion', function(req, res, next) {
 
     });
 
+    request('http://172.20.10.3:80', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(response.body.resultat);
+            console.log(body); // Print the body of response.
+
+            var io = req.app.get('socketio');
+            var connection = db.getconnection();
+            connection.collection("questions").updateOne(
+                { _id: id},
+                {
+                    resultat: 'test'//response.body.resultat
+                }
+            );
+            io.emit('data', {resultat: 'test'});
+        }
+    });
+
     //questions.forEach(function(obj, i) {
     //    console.log(
     //        "ID : "  + obj._id.toString() + "\n"
@@ -62,32 +79,32 @@ router.get('/playQuestion', function(req, res, next) {
     //});
 });
 
-router.post('/postResponse', function(req, res, next) {
-    console.log(req.body);
-    console.log(req.body.idQuestion);
-    var question = req.body.idQuestion;
-    var resultat = req.body.resultat;
-    var io = req.app.get('socketio');
-    var connection = db.getconnection();
-    connection.collection("questions").find().toArray(function (error, questions) {
-        if (error) throw error;
-        //console.log(questions[req.body.idQuestion].intitule);
-        var nbQuestion = questions.length;
-        if (parseInt(question) < nbQuestion) {
-            connection.collection("questions").updateOne(
-                {intitule: questions[req.body.idQuestion].intitule},
-                {
-                    intitule: questions[req.body.idQuestion].intitule,
-                    resultat: req.body.resultat
-                }
-            );
-            io.emit('data', {resultat: resultat, question: question});
-            res.sendStatus(200);
-
-        } else {
-            res.status(404);
-        }
-    });
+// router.post('/postResponse', function(req, res, next) {
+//     console.log(req.body);
+//     console.log(req.body.idQuestion);
+//     var question = req.body.idQuestion;
+//     var resultat = req.body.resultat;
+//     var io = req.app.get('socketio');
+//     var connection = db.getconnection();
+//     connection.collection("questions").find().toArray(function (error, questions) {
+//         if (error) throw error;
+//         //console.log(questions[req.body.idQuestion].intitule);
+//         var nbQuestion = questions.length;
+//         if (parseInt(question) < nbQuestion) {
+//             connection.collection("questions").updateOne(
+//                 {intitule: questions[req.body.idQuestion].intitule},
+//                 {
+//                     intitule: questions[req.body.idQuestion].intitule,
+//                     resultat: req.body.resultat
+//                 }
+//             );
+//             io.emit('data', {resultat: resultat, question: question});
+//             res.sendStatus(200);
+//
+//         } else {
+//             res.status(404);
+//         }
+//     });
 
 
 
@@ -95,24 +112,7 @@ router.post('/postResponse', function(req, res, next) {
 
 router.get('/finishTest', function(req, res, next) {
     console.log('/finishTest');
-    // $.get('http://172.20.10.3:80?state=OFF', function (req, res) {
-    //     console.log(res);
-    //     console.log(req);
-    // });
 
-    var request = require('request');
-    request('http://172.20.10.3:80', function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body); // Print the body of response.
-        }
-    });
-    // var connection = db.getconnection();
-    // connection.collection("questions").updateMany({}, {$set : {resultat:'', reponse:''}});
-    // if (req.body.res == 'end'){
-    //     res.sendStatus(200);
-    // } else {
-    //     res.sendStatus(404);
-    // }
     res.redirect('/');
 });
 
