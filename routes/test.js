@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
 /* Play a question. */
 router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
-
+    var io = req.app.get('socketio');
     var id = req.query.questionId;
     var dataArdui = '';
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
