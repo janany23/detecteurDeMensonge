@@ -27,7 +27,7 @@ block content
                                 span.glyphicon.glyphicon-play(aria-hidden='true')
 
                         td= mongo_result.reponse
-                        td(id='td' + i)= mongo_result.resultat
+                        td(id='td' + mongo_result._id)= mongo_result.resultat
         he
         button(id='finishTest') Terminer le test
 
