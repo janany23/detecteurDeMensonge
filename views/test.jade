@@ -51,24 +51,26 @@ block content
     script(src='/javascripts/socket.io/socket.io.js')
     script(type='text/javascript').
         $(document).ready(function () {
-
+            //Connect new client to socket.io
             var socket = io.connect('http://192.168.2.2:3001');
 
-            socket.on('msg', function (message) {
-                console.log('Le serveur a un message pour vous : ' + message);
-            });
-
+            //listen on the data receive by the arduino
             socket.on('data', function (data) {
                 console.log('data :' + data );
                 var question = '5a2174f1373a924b81d7c1b4';
-                var resultat = data.resultat;
-                $('#td' + question).append(resultat);
+                //var resultat = data;
+
+                //show result
+                $('#td' + question).append(data);
             });
 
+            //click on create question
             $('#sendQuestion').on('click', function () {
                 if ($('#inputQuestion').val() != '') {
                     $('.form-group').removeClass('has-error');
                     var parameters = {intitule: $('#inputQuestion').val()};
+
+                    //call for create question
                     $.post('/questions/add', parameters, function () {
                         location.reload();
                     });
@@ -78,13 +80,16 @@ block content
                 }
             });
 
-
+            //click on play question
             $('.playQuestion').on('click', function () {
                 var parameters = {'questionId': $(this).data('questionid')};
-                $.get('/test/playQuestion/', parameters, function (response) {
+
+                //call for get the data from arduino
+                $.get('/test/playQuestion/', parameters, function () {
                 });
             });
 
+            //click on finish test
             $('#finishTest').on('click', function () {
                 window.location.href = '/';
             });

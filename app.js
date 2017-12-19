@@ -79,11 +79,6 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
   console.log('Client connected : ' + socket.id + ', origin : ' + socket.handshake.headers.host);
 
-  // socket.on('dataReceive', function (data) {
-  //   console.log('dataReceive : ' + data);
-  //   socket.emit('data', data);
-  // });
-
   // client disconnect handler
   socket.on('disconnect', function () {
     console.log('client disconnected: ' + socket.id);

@@ -15,16 +15,10 @@ var request = require('request');
 /* GET questions listing. */
 router.get('/', function(req, res, next) {
     var connection = db.getconnection();
+    //get all question from mongoDb
     connection.collection("questions").find().toArray(function (error, questions) {
         if (error) throw error;
-        //questions.forEach(function(obj, i) {
-        //    console.log(
-        //        "ID : "  + obj._id.toString() + "\n"
-        //        + "Question "+(i+1)+" : " + obj.intitule + "\n"
-        //        + "Resultat "+(i+1)+" : " + obj.resultat + "\n"
-        //        + "Reponse "+(i+1)+" : " + obj.reponse + "\n"
-        //    );
-        //});
+        //render all the question
         res.render('test', {
             questions: questions
         });
@@ -36,11 +30,14 @@ router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
     var io = req.app.get('socketio');
     var id = req.query.questionId;
-    
+
+    //get question by id
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
         if (err) throw err;
         var question = result[0].intitule;
         console.log(question);
+
+        //execute scipt to listen to the question
         exec('sh ./scripts/dit.sh "'+ question + '"', function (error, stdout, stderr)
             {
                 console.log(stdout);
@@ -51,60 +48,22 @@ router.get('/playQuestion', function(req, res, next) {
             }
         );
 
+        //call arduino server to get data
         request('http://172.20.10.3:80', function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var responseArdui = JSON.parse(body);
-                io.emit('data', responseArdui[0].resultat);
                 console.log(responseArdui[0].resultat);
-                // if (responseArdui[0].resultat){
-                // dataArdui = responseArdui[0].resultat;
-                // }
-            }
-            // dataArdui = 'error try to get http://172.20.10.3:80';
 
-            // return res.send(dataArdui);
+                //socket server emit the date from ardui
+                io.emit('data', {resultat: responseArdui[0].resultat, question: id});
+            } else {
+                console.log('error try to get http://172.20.10.3:8 : ' + error.code);
+            }
         });
     });
 
-
     res.redirect('/');
-    //questions.forEach(function(obj, i) {
-    //    console.log(
-    //        "ID : "  + obj._id.toString() + "\n"
-    //        + "Question "+(i+1)+" : " + obj.intitule + "\n"
-    //    );
-    //});
-    // res.redirect('/');
-    //});
 });
-
-// router.post('/postResponse', function(req, res, next) {
-//     console.log(req.body);
-//     console.log(req.body.idQuestion);
-//     var question = req.body.idQuestion;
-//     var resultat = req.body.resultat;
-//     var io = req.app.get('socketio');
-//     var connection = db.getconnection();
-//     connection.collection("questions").find().toArray(function (error, questions) {
-//         if (error) throw error;
-//         //console.log(questions[req.body.idQuestion].intitule);
-//         var nbQuestion = questions.length;
-//         if (parseInt(question) < nbQuestion) {
-//             connection.collection("questions").updateOne(
-//                 {intitule: questions[req.body.idQuestion].intitule},
-//                 {
-//                     intitule: questions[req.body.idQuestion].intitule,
-//                     resultat: req.body.resultat
-//                 }
-//             );
-//             io.emit('data', {resultat: resultat, question: question});
-//             res.sendStatus(200);
-//
-//         } else {
-//             res.status(404);
-//         }
-//     });
-// });
 
 router.get('/finishTest', function(req, res, next) {
     console.log('/finishTest');
