@@ -55,8 +55,8 @@ router.get('/playQuestion', function(req, res, next) {
                 console.log(body); // Print the body of response.
                 var res = JSON.parse(body);
 
-                var socket = io.connect('http://192.168.2.2:3001');
-                socket.emit('dataReceive', res);
+                var io = req.app.get('socketio');
+                io.emit('dataReceive', res);
             }
         });
 
