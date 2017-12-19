@@ -36,39 +36,38 @@ router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
     var io = req.app.get('socketio');
     var id = req.query.questionId;
-    var dataArdui = '';
+    
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
         if (err) throw err;
         var question = result[0].intitule;
         console.log(question);
-        // exec('sh ./scripts/dit.sh "'+ question + '"', function (error, stdout, stderr)
-        //     {
-        //         console.log(stdout);
-        //         console.log(stderr);
-        //         if (error !== null) {
-        //             console.log('exec error:' + error);
-        //         }
-        //     }
-        // );
+        exec('sh ./scripts/dit.sh "'+ question + '"', function (error, stdout, stderr)
+            {
+                console.log(stdout);
+                console.log(stderr);
+                if (error !== null) {
+                    console.log('exec error:' + error);
+                }
+            }
+        );
 
         request('http://172.20.10.3:80', function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                // console.log(body); // Print the body of response.
-                io.emit('data', 'test emit');
                 var responseArdui = JSON.parse(body);
+                io.emit('data', responseArdui[0].resultat);
                 console.log(responseArdui[0].resultat);
                 // if (responseArdui[0].resultat){
-                dataArdui = responseArdui[0].resultat;
+                // dataArdui = responseArdui[0].resultat;
                 // }
             }
-            dataArdui = 'error try to get http://172.20.10.3:80';
+            // dataArdui = 'error try to get http://172.20.10.3:80';
 
-            return res.send(dataArdui);
+            // return res.send(dataArdui);
         });
     });
 
 
-
+    res.redirect('/');
     //questions.forEach(function(obj, i) {
     //    console.log(
     //        "ID : "  + obj._id.toString() + "\n"
