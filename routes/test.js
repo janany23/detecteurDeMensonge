@@ -54,7 +54,7 @@ router.get('/playQuestion', function(req, res, next) {
             if (!error && response.statusCode == 200) {
                 console.log(body); // Print the body of response.
                 var res = JSON.parse(body);
-                var io = req.app.get('socketio');
+                //var io = req.app.get('socketio');
                 
                 // var connection = db.getconnection();
                 // connection.collection("questions").updateOne(
@@ -63,7 +63,7 @@ router.get('/playQuestion', function(req, res, next) {
                 //         resultat: 'test'//response.body.resultat
                 //     }
                 // );
-                io.sokets.emit('data', {resultat: res[0].resultat});
+                //io.sokets.emit('data', {resultat: res[0].resultat});
             }
         });
 
