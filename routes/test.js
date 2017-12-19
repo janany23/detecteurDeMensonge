@@ -56,9 +56,10 @@ router.get('/playQuestion', function(req, res, next) {
                 console.log(body); // Print the body of response.
                 responseArdui = JSON.parse(body);
             }
+            responseArdui = 'test data !';
         });
 
-        return res.send(responseArdui[0].resultat);
+        return res.send(responseArdui);
     });
 
 
