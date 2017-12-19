@@ -56,12 +56,12 @@ block content
 
             //listen on the data receive by the arduino
             socket.on('data', function (data) {
-                console.log('data :' + data );
-                var question = '5a2174f1373a924b81d7c1b4';
-                //var resultat = data;
+                console.log('question :' + data.question + ', resultat : ' + data.resultat);
+                var question = data.question;
+                var resultat = data.resultat;
 
                 //show result
-                $('#td' + question).append(data);
+                $('#td' + question).append(resultat);
             });
 
             //click on create question
