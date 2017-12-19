@@ -55,7 +55,7 @@ router.get('/playQuestion', function(req, res, next) {
             if (!error && response.statusCode == 200) {
                 // console.log(body); // Print the body of response.
                 var responseArdui = JSON.parse(body);
-                console.log(responseArdui);
+                console.log(responseArdui[0]);
                 // if (responseArdui[0].resultat){
                 dataArdui = responseArdui[0].resultat;
                 // }
