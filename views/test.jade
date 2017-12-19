@@ -81,8 +81,9 @@ block content
 
             $('.playQuestion').on('click', function () {
                 var parameters = {'questionId': $(this).data('questionid')};
-                $.get('/test/playQuestion/', parameters, function () {
-
+                $.get('/test/playQuestion/', parameters, function (response) {
+                    console.log(response);
+                    socket.emit('dataReceive', response);
                 });
             });
 

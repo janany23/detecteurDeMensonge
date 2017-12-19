@@ -36,30 +36,29 @@ router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
 
     var id = req.query.questionId;
+    var responseArdui = '';
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
         if (err) throw err;
         var question = result[0].intitule;
         console.log(question);
-        exec('sh ./scripts/dit.sh "'+ question + '"', function (error, stdout, stderr)
-            {
-                console.log(stdout);
-                console.log(stderr);
-                if (error !== null) {
-                    console.log('exec error:' + error);
-                }
-            }
-        );
+        // exec('sh ./scripts/dit.sh "'+ question + '"', function (error, stdout, stderr)
+        //     {
+        //         console.log(stdout);
+        //         console.log(stderr);
+        //         if (error !== null) {
+        //             console.log('exec error:' + error);
+        //         }
+        //     }
+        // );
 
         request('http://172.20.10.3:80', function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body); // Print the body of response.
-                var res = JSON.parse(body);
-
-                var io = req.app.get('socketio');
-                io.emit('dataReceive', res);
+                responseArdui = JSON.parse(body);
             }
         });
 
+        return res.send(responseArdui[0].resultat);
     });
 
 
