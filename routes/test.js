@@ -61,9 +61,9 @@ router.get('/playQuestion', function(req, res, next) {
                 }
             }
             dataArdui = 'error try to get http://172.20.10.3:80';
-        });
 
-        return res.send(dataArdui);
+            return res.send(dataArdui);
+        });
     });
 
 
