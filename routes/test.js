@@ -36,7 +36,7 @@ router.get('/playQuestion', function(req, res, next) {
     var connection = db.getconnection();
 
     var id = req.query.questionId;
-    var responseArdui = '';
+    var dataArdui = '';
     connection.collection("questions").find({ "_id" : ObjectId(id) }).toArray(function(err, result) {
         if (err) throw err;
         var question = result[0].intitule;
@@ -54,12 +54,16 @@ router.get('/playQuestion', function(req, res, next) {
         request('http://172.20.10.3:80', function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body); // Print the body of response.
-                responseArdui = JSON.parse(body);
+                var responseArdui = JSON.parse(body);
+
+                if (responseArdui[0].resultat){
+                    dataArdui = responseArdui[0].resultat
+                }
             }
-            responseArdui = 'test data !';
+            dataArdui = 'error try to get http://172.20.10.3:80';
         });
 
-        return res.send(responseArdui);
+        return res.send(dataArdui);
     });
 
 
