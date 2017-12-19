@@ -76,19 +76,21 @@ server.listen(3001);
 var io = require('socket.io').listen(server);
 
 // Quand un client se connecte, on le note dans la console
-io.on('connection', function (socket) {
-  console.log('client connected: ' + socket.id);
-  console.log(socket);
+io.sockets.on('connection', function (socket) {
+  console.log('Client connected : ' + socket.id + ', origin : ' + socket.handshake.headers.host);
 
-  // send message to the current client
-  socket.emit('msg', 'hello new user');
+  socket.on('dataReceive', function (data) {
+    console.log('dataReceive : ' + data);
+    socket.emit('data', data);
+  });
 
   // client disconnect handler
   socket.on('disconnect', function () {
-
     console.log('client disconnected: ' + socket.id);
   });
+
 });
+
 
 
 app.set('socketio', io);

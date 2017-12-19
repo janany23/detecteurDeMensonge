@@ -52,14 +52,18 @@ block content
     script(type='text/javascript').
         $(document).ready(function () {
 
-            //var socket = io.connect("http://localhost:3001");
+            var socket = io.connect('http://localhost:3001');
 
-            //socket.on('data', function (data) {
-                //var question = '5a2174f1373a924b81d7c1b4';
-                //var resultat = data.resultat;
-                //console.log(resultat);
-                //$('#td' + question).append(resultat);
-            //});
+            socket.on('msg', function (message) {
+                console.log('Le serveur a un message pour vous : ' + message);
+            });
+
+            socket.on('data', function (data) {
+                console.log('data :' + data );
+                var question = '5a2174f1373a924b81d7c1b4';
+                var resultat = data.resultat;
+                $('#td' + question).append(resultat);
+            });
 
             $('#sendQuestion').on('click', function () {
                 if ($('#inputQuestion').val() != '') {
@@ -77,8 +81,9 @@ block content
 
             $('.playQuestion').on('click', function () {
                 var parameters = {'questionId': $(this).data('questionid')};
-                $.get('/test/playQuestion/', parameters, function () {
-
+                $.get('/test/playQuestion/', parameters, function (response) {
+                    console.log(response);
+                    socket.emit('dataReceive', response);
                 });
             });
 
