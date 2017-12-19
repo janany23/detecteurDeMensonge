@@ -53,9 +53,9 @@ router.get('/playQuestion', function(req, res, next) {
 
         request('http://172.20.10.3:80', function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log(body); // Print the body of response.
+                // console.log(body); // Print the body of response.
                 var responseArdui = JSON.parse(body);
-
+                console.log(responseArdui);
                 if (responseArdui[0].resultat){
                     dataArdui = responseArdui[0].resultat
                 }
