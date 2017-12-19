@@ -63,7 +63,7 @@ router.get('/playQuestion', function(req, res, next) {
                 //         resultat: 'test'//response.body.resultat
                 //     }
                 // );
-                io.emit('data', {resultat: res[0].resultat});
+                io.sokets.emit('data', {resultat: res[0].resultat});
             }
         });
 
