@@ -54,7 +54,7 @@ router.get('/playQuestion', function(req, res, next) {
             if (!error && response.statusCode == 200) {
                 console.log(body); // Print the body of response.
                 var res = JSON.parse(body);
-                var io = req.app.get('socketio');
+                var socket = io("http://localhost:3001");
                 
                 // var connection = db.getconnection();
                 // connection.collection("questions").updateOne(
