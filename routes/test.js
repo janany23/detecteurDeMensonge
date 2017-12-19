@@ -54,7 +54,9 @@ router.get('/playQuestion', function(req, res, next) {
             if (!error && response.statusCode == 200) {
                 console.log(body); // Print the body of response.
                 var res = JSON.parse(body);
-                return res.send(res[0].resultat);
+
+                var socket = io.connect('http://192.168.2.2:3001');
+                socket.emit('dataReceive', res);
             }
         });
 
