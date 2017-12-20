@@ -23,8 +23,8 @@ h1#title{
   margin: auto;
 }
 
-.container td{
-  text-align: left;
+.container th, td{
+  text-align: center;
 }
 
 .buttonMain{
@@ -37,19 +37,43 @@ h1#title{
   display: inline-block;
   margin: 4px 10px;
   cursor: pointer;
+  border-radius: 5px;
 
 }
 
-.buttonSecondary{
-  background-color: #82b74b;
+.buttonSecondary {
+  background-color: #4285F4;
   border: none;
   color: white;
   padding: 7px 22px;
-  float: left;
   text-decoration: none;
   display: inline-block;
   margin: 20px 20px;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+.left {
+  float: left;
+}
+
+.buttonIcon {
+  background-color: #34A853;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttonIcon:hover {
+  background-color: #318F4A;
+}
+
+.buttonIcon:disabled {
+  background-color: #EA4335;
 }
 
 #imgMain{

@@ -2,7 +2,10 @@ extends layout
 
 block content
     h1= title
-    button(id='addQuestion', class='buttonSecondary', data-toggle='modal', data-target='#myModal') Ajouter une question
+    button(id='addQuestion', class='buttonSecondary left', data-toggle='modal', data-target='#myModal') Ajouter une question
+        i(class="fa fa-plus", aria-hidden="true")
+
+
 
     .container
         table.table
@@ -19,6 +22,8 @@ block content
                         td
                             button(class='deleteQuestion', data-questionid="" + mongo_result._id + "")
                                 span.glyphicon.glyphicon-trash(aria-hidden='true')
+        he
+        button(id='finish', class='buttonSecondary') Terminer
 
     // Modal
     #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
@@ -58,6 +63,11 @@ block content
                 $.post('/questions/delete', parameters, function () {
                     location.reload();
                 });
+            });
+
+            //click on finish test
+            $('#finish').on('click', function () {
+                window.location.href = '/';
             });
 
         });

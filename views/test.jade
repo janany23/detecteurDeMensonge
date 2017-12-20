@@ -23,10 +23,12 @@ block content
                         td= (i + 1)
                         td= mongo_result.intitule
                         td
-                            button(class='playQuestion', data-questionid="" + mongo_result._id + "")
-                                span.glyphicon.glyphicon-play(aria-hidden='true')
+                            button(class='playQuestion buttonIcon', data-questionid="" + mongo_result._id + "")
+                                span(class="fa fa-play-circle fa-4")
 
-                        td= mongo_result.reponse
+                        td
+                            button(class='playReponse buttonIcon', data-questionid="" + mongo_result._id + "", disabled="disabled")
+                                span(class="fa fa-microphone-slash", aria-hidden="true")
                         td(id='td' + mongo_result._id)= mongo_result.resultat
         he
         button(id='finishTest') Terminer le test
