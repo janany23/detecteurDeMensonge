@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
         if (error) throw error;
         //render all the question
         res.render('test', {
+            title: 'Begin test',
             questions: questions
         });
     });

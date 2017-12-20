@@ -72,10 +72,13 @@ h1#title{
   background-color: #318F4A;
 }
 
-.buttonIcon:disabled {
+.buttonRed {
   background-color: #EA4335;
 }
 
+.buttonOrange {
+  background-color: #c6852b;
+}
 #imgMain{
   height: auto;
   width: auto;
