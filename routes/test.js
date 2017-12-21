@@ -4,8 +4,9 @@
 var express = require('express');
 var router = express.Router();
 var db = require('./mongo');
-var exec = require('child_process').exec;
+// var exec = require('child_process').exec;
 var ObjectId = require('mongodb').ObjectID;
+var exec = require('exec-then');
 var net = require('net');
 var io = require('socket.io');
 var url = require('url');
