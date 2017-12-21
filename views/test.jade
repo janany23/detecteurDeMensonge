@@ -66,6 +66,7 @@ block content
 
                 var classProgressBar;
                 var resultat;
+                //calculate result for progress bar
                 if (isLie && value < 50) {
                     classProgressBar = "progress-bar-danger";
                     resultat = 'Mensonge';
@@ -75,7 +76,7 @@ block content
                 } else if (!isLie && value < 50) {
                     classProgressBar = "progress-bar-danger";
                     resultat = 'Mensonge';
-                } else {
+                } else if (!isLie && value > 50) {
                     classProgressBar = "progress-bar-success";
                     resultat = 'Vérité';
                 }
