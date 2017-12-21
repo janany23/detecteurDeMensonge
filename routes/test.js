@@ -85,15 +85,15 @@ router.get('/playReponse', function(req, res, next) {
     var id = req.query.questionId;
 
     //execute scipt to record to the answer
-    // exec('sh ./scripts/playAnswer.sh '+ id + '.wav', function (error, stdout, stderr)
-    //     {
-    //         console.log(stdout);
-    //         console.log(stderr);
-    //         if (error !== null) {
-    //             console.log('exec error:' + error);
-    //         }
-    //     }
-    // );
+    exec('sh ./scripts/playAnswer.sh '+ id + '.wav', function (error, stdout, stderr)
+        {
+            console.log(stdout);
+            console.log(stderr);
+            if (error !== null) {
+                console.log('exec error:' + error);
+            }
+        }
+    );
 
     res.redirect('/');
 });
