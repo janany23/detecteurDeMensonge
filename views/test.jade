@@ -61,11 +61,28 @@ block content
             socket.on('data', function (data) {
                 console.log('question :' + data.question + ', resultat : ' + data.resultat);
                 var question = data.question;
-                var resultat = data.resultat;
+                var value = data.resultat;
                 var tdResponse = $('#playResponse-'+question);
 
-                //show result
-                $('#td' + question).append(resultat);
+                var classProgressBar;
+                var resultat;
+                if (value < 40) {
+                    classProgressBar = "progress-bar-danger";
+                    resultat = 'Mensonge';
+                } else if (value >= 40 && value < 60) {
+                    classProgressBar = "progress-bar-warning";
+                    resultat = 'Douteux';
+                } else {
+                    classProgressBar = "progress-bar-success";
+                    resultat = 'Vérité';
+                }
+                $("#td" + id).append('' +
+                        '<div class="progress">' +
+                        '<div class= "progress-bar ' + classProgressBar + '" role="progressbar" ' +
+                        'aria-valuenow = "' + value + '" aria-valuemin = "0" aria-valuemax = "100" style = "width:' + value + '%" >' +
+                        value + '% ' + resultat +
+                        '</div>' +
+                        '</div>');
 
                 tdResponse.find('button span').removeClass('fa-spinner faa-spin animated');
                 tdResponse.find('button span').addClass('fa-microphone');
@@ -102,26 +119,6 @@ block content
                 $.get('/test/playQuestion/', parameters, function () {
 
                 });
-                var value = 55;
-                var classProgressBar;
-                var resultat;
-                if (value < 40){
-                    classProgressBar = "progress-bar-danger";
-                    resultat = 'Mensonge';
-                } else if(value >= 40 && value <60){
-                    classProgressBar = "progress-bar-warning";
-                    resultat = 'Douteux';
-                } else {
-                    classProgressBar = "progress-bar-success";
-                    resultat = 'Vérité';
-                }
-                $("#td"+id).append(''+
-                    '<div class="progress">'+
-                        '<div class= "progress-bar '+classProgressBar+'" role="progressbar" '+
-                            'aria-valuenow = "'+value+'" aria-valuemin = "0" aria-valuemax = "100" style = "width:'+value+'%" >'+
-                            value+'% '+resultat+
-                        '</div>'+
-                    '</div>');
             });
 
             //click on play question
