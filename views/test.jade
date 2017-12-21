@@ -83,17 +83,21 @@ block content
 
             //click on play question
             $('.playQuestion').on('click', function () {
-                var id = $(this).data('questionid')
+                var id = $(this).data('questionid');
                 var parameters = {'questionId': id};
+                var tdResponse = $('#playResponse-'+id);
 
-                $('#playReponse-'+id).find('button>span').removeClass('fa-microphone-slash');
-                $('#playReponse-'+id).find('button>span').addClass('fa-spinner faa-spin animated');
+                tdResponse.find('button span').removeClass('fa-microphone-slash');
+                tdResponse.find('button span').addClass('fa-spinner faa-spin animated');
 
                 //call for get the data from arduino
                 $.get('/test/playQuestion/', parameters, function () {
-                    $('#playReponse-'+id).find('button>span').removeClass('fa-spinner faa-spin animated');
-                    $('#playReponse-'+id).find('button>span').addClass('fa-microphone');
-                    $('#playReponse-'+id).find('button').prop("disabled", fasle);
+
+
+                    console.log(tdResponse.find('button>span'));
+                    tdResponse.find('button span').removeClass('fa-spinner faa-spin animated');
+                    tdResponse.find('button span').addClass('fa-microphone');
+                    tdResponse.find('button').prop("disabled", false);
                 });
             });
 
