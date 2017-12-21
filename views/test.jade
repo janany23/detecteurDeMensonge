@@ -106,12 +106,13 @@ block content
             $('.playReponse').on('click', function () {
                 var parameters = {'questionId': $(this).data('questionid')};
 
-                $(this).removeClass('fa-microphone');
-                $(this).addClass('fa-volume-up');
+                console.log($(this));
+                $(this).find('span').removeClass('fa-microphone');
+                $(this).find('span').addClass('fa-volume-up');
                 //call for get the data from arduino
                 $.get('/test/playReponse/', parameters, function () {
-                    $(this).removeClass('fa-volume-up');
-                    $(this).addClass('fa-microphone');
+                    $(this).find('span').removeClass('fa-volume-up');
+                    $(this).find('span').addClass('fa-microphone');
                 });
             });
 
