@@ -28,8 +28,10 @@ block content
                         td(id='playResponse-'+ mongo_result._id)
                             button(class='playReponse buttonIcon buttonOrange', data-questionid="" + mongo_result._id + "", disabled="disabled")
                                 span(class="fa fa-microphone-slash", aria-hidden="true")
-                        td(id='td' + mongo_result._id)= mongo_result.resultat
-        he
+                        //td(id='td' + mongo_result._id)= mongo_result.resultat
+                        td(id='td' + mongo_result._id)
+
+        hr
         button(id='finishTest', class='buttonSecondary buttonRed') Terminer le test
 
     // Modal
@@ -100,6 +102,26 @@ block content
                 $.get('/test/playQuestion/', parameters, function () {
 
                 });
+                var value = 55;
+                var classProgressBar;
+                var resultat;
+                if (value < 40){
+                    classProgressBar = "progress-bar-danger";
+                    resultat = 'Mensonge';
+                } else if(value >= 40 && value <60){
+                    classProgressBar = "progress-bar-warning";
+                    resultat = 'Douteux';
+                } else {
+                    classProgressBar = "progress-bar-success";
+                    resultat = 'Vérité';
+                }
+                $("#td"+id).append(''+
+                    '<div class="progress">'+
+                        '<div class= "progress-bar '+classProgressBar+'" role="progressbar" '+
+                            'aria-valuenow = "'+value+'" aria-valuemin = "0" aria-valuemax = "100" style = "width:'+value+'%" >'+
+                            value+'% '+resultat+
+                        '</div>'+
+                    '</div>');
             });
 
             //click on play question
