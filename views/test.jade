@@ -62,9 +62,14 @@ block content
                 console.log('question :' + data.question + ', resultat : ' + data.resultat);
                 var question = data.question;
                 var resultat = data.resultat;
+                var tdResponse = $('#playResponse-'+question);
 
                 //show result
                 $('#td' + question).append(resultat);
+
+                tdResponse.find('button span').removeClass('fa-spinner faa-spin animated');
+                tdResponse.find('button span').addClass('fa-microphone');
+                tdResponse.find('button').prop("disabled", false);
             });
 
             //click on create question
@@ -91,15 +96,11 @@ block content
 
                 $(this).prop("disabled", true);
                 tdResponse.find('button span').removeClass('fa-microphone-slash');
-                tdResponse.find('button span').removeClass('buttonGrey');
-                tdResponse.find('button span').addClass('buttonOrange');
                 tdResponse.find('button span').addClass('fa-spinner faa-spin animated');
 
                 //call for get the data from arduino
                 $.get('/test/playQuestion/', parameters, function () {
-                    tdResponse.find('button span').removeClass('fa-spinner faa-spin animated');
-                    tdResponse.find('button span').addClass('fa-microphone');
-                    tdResponse.find('button').prop("disabled", false);
+
                 });
                 var value = 55;
                 var classProgressBar;
@@ -127,12 +128,13 @@ block content
             $('.playReponse').on('click', function () {
                 var parameters = {'questionId': $(this).data('questionid')};
 
-                $(this).removeClass('fa-microphone');
-                $(this).addClass('fa-volume-up');
+                console.log($(this));
+                $(this).find('span').removeClass('fa-microphone');
+                $(this).find('span').addClass('fa-volume-up');
                 //call for get the data from arduino
                 $.get('/test/playReponse/', parameters, function () {
-                    $(this).removeClass('fa-volume-up');
-                    $(this).addClass('fa-microphone');
+                    $(this).find('span').removeClass('fa-volume-up');
+                    $(this).find('span').addClass('fa-microphone');
                 });
             });
 
