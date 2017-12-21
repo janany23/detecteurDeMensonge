@@ -25,7 +25,7 @@ block content
                             button(class='playQuestion buttonIcon', data-questionid="" + mongo_result._id + "")
                                 span(class="fa fa-play-circle fa-4")
 
-                        td
+                        td(id='playResponse-'+ mongo_result._id)
                             button(class='playReponse buttonIcon buttonOrange', data-questionid="" + mongo_result._id + "", disabled="disabled")
                                 span(class="fa fa-microphone-slash", aria-hidden="true")
                         td(id='td' + mongo_result._id)= mongo_result.resultat
@@ -83,24 +83,23 @@ block content
 
             //click on play question
             $('.playQuestion').on('click', function () {
-                var parameters = {'questionId': $(this).data('questionid')};
+                var id = $(this).data('questionid')
+                var parameters = {'questionId': id};
 
-                $(this).removeClass('fa-microphone-slash');
-                $(this).addClass('fa-spinner faa-spin animated');
+                $('#playReponse-'+id).find('button>span').removeClass('fa-microphone-slash');
+                $('#playReponse-'+id).find('button>span').addClass('fa-spinner faa-spin animated');
 
                 //call for get the data from arduino
                 $.get('/test/playQuestion/', parameters, function () {
-                    $(this).removeClass('fa-spinner faa-spin animated');
-                    $(this).addClass('fa-microphone');
-                    $(this).prop("disabled", fasle);
+                    $('#playReponse-'+id).find('button>span').removeClass('fa-spinner faa-spin animated');
+                    $('#playReponse-'+id).find('button>span').addClass('fa-microphone');
+                    $('#playReponse-'+id).find('button').prop("disabled", fasle);
                 });
             });
 
             //click on play question
             $('.playReponse').on('click', function () {
                 var parameters = {'questionId': $(this).data('questionid')};
-
-
 
                 //call for get the data from arduino
                 $.get('/test/playReponse/', parameters, function () {

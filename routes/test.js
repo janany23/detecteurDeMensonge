@@ -65,7 +65,7 @@ router.get('/playQuestion', function(req, res, next) {
                         }
                     }
                 );
-                
+
                 //socket server emit the date from ardui
                 io.emit('data', {resultat: responseArdui[0].resultat, question: id});
             } else {
@@ -82,6 +82,7 @@ router.get('/playQuestion', function(req, res, next) {
 router.get('/playReponse', function(req, res, next) {
     var id = req.query.questionId;
 
+    
 
 
 });
