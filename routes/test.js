@@ -61,24 +61,24 @@ router.get('/playQuestion', function(req, res, next) {
                             console.log('exec error1 :');
                             console.log(res.err);
                         }
-
+                        return true;
                     }
-                );
-            }
-        });
+                ).then(function(r){
+                    if (r){
+                        //call arduino server to get data
+                        request('http://172.20.10.3:80', function (error, response, body) {
+                            if (!error && response.statusCode == 200) {
+                                var responseArdui = JSON.parse(body);
+                                console.log(responseArdui[0].resultat);
 
-        //call arduino server to get data
-        request('http://172.20.10.3:80', function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var responseArdui = JSON.parse(body);
-                console.log(responseArdui[0].resultat);
-
-
-
-                //socket server emit the date from ardui
-                io.emit('data', {resultat: responseArdui[0].resultat, question: id});
-            } else {
-                console.log('error try to get http://172.20.10.3:8 : ' + error.code);
+                                //socket server emit the date from ardui
+                                io.emit('data', {resultat: responseArdui[0].resultat, question: id});
+                            } else {
+                                console.log('error try to get http://172.20.10.3:8 : ' + error.code);
+                            }
+                        });
+                    }
+                });
             }
         });
 
@@ -91,12 +91,13 @@ router.get('/playReponse', function(req, res, next) {
     var id = req.query.questionId;
 
     //execute scipt to record to the answer
-    exec('sh ./scripts/playAnswer.sh '+ id + '.wav', function (error, stdout, stderr)
+    exec('sh ./scripts/playAnswer.sh '+ id + '.wav', function (res, deferred)
         {
-            console.log(stdout);
-            console.log(stderr);
-            if (error !== null) {
-                console.log('exec error:' + error);
+            console.log('playAnswer.sh');
+            console.log(res.stdout);
+            if (res.err !== null) {
+                console.log('exec error1 :');
+                console.log(res.err);
             }
         }
     );
