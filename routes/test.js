@@ -47,18 +47,20 @@ router.get('/playQuestion', function(req, res, next) {
                     console.log('exec error:' + error);
                 }
             }
-        );
-
-        //execute scipt to record to the answer
-        exec('sh ./scripts/recording.sh '+ id, function (error, stdout, stderr)
-            {
-                console.log(stdout);
-                console.log(stderr);
-                if (error !== null) {
-                    console.log('exec error:' + error);
-                }
+        ).then(function(r) {
+            if (r) {
+                //execute scipt to record to the answer
+                exec('sh ./scripts/recording.sh '+ id, function (error, stdout, stderr)
+                    {
+                        console.log(stdout);
+                        console.log(stderr);
+                        if (error !== null) {
+                            console.log('exec error:' + error);
+                        }
+                    }
+                );
             }
-        );
+        });
 
         //call arduino server to get data
         request('http://172.20.10.3:80', function (error, response, body) {
@@ -66,15 +68,14 @@ router.get('/playQuestion', function(req, res, next) {
                 var responseArdui = JSON.parse(body);
                 console.log(responseArdui[0].resultat);
 
+
+
                 //socket server emit the date from ardui
                 io.emit('data', {resultat: responseArdui[0].resultat, question: id});
             } else {
                 console.log('error try to get http://172.20.10.3:8 : ' + error.code);
             }
         });
-
-
-
 
     });
 
