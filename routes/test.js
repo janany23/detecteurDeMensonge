@@ -72,7 +72,7 @@ router.get('/playQuestion', function(req, res, next) {
                                 console.log(responseArdui[0].resultat);
 
                                 //socket server emit the date from ardui
-                                io.emit('data', {resultat: responseArdui[0].resultat, question: id, data:23});
+                                io.emit('data', {resultat: responseArdui[0].resultat, question: id, percent: responseArdui[0].percent});
                             } else {
                                 console.log('error try to get http://172.20.10.3:8 : ' + error.code);
                             }
