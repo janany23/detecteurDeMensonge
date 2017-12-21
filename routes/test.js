@@ -42,11 +42,14 @@ router.get('/playQuestion', function(req, res, next) {
         //execute scipt to listen to the question
         exec('sh ./scripts/dit.sh "'+ question + '"', function (error, stdout, stderr)
             {
+                console.log('dit.sh');
                 console.log(stdout);
                 console.log(stderr);
                 if (error !== null) {
-                    console.log('exec error:' + error);
+                    console.log('exec error1 :');
+                    console.log(error);
                 }
+                return true;
             }
         ).then(function(r) {
             if (r) {
@@ -56,7 +59,7 @@ router.get('/playQuestion', function(req, res, next) {
                         console.log(stdout);
                         console.log(stderr);
                         if (error !== null) {
-                            console.log('exec error:' + error);
+                            console.log('exec error2 :' + error);
                         }
                     }
                 );
