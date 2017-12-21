@@ -2,8 +2,9 @@ extends layout
 
 block content
     h1= title
-    button(id='addQuestion', class='buttonSecondary left', data-toggle='modal', data-target='#myModal') Ajouter une question
-
+    button(id='addQuestion', class='buttonSecondary left', data-toggle='modal', data-target='#myModal')
+        i.fa.fa-plus(aria-hidden='true')
+        |  Ajouter question
     .container
         table.table
             thead

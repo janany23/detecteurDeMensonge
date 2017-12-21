@@ -66,6 +66,22 @@ router.get('/playQuestion', function(req, res, next) {
     res.redirect('/');
 });
 
+router.get('/playReponse', function(req, res, next) {
+    var id = req.query.questionId;
+
+    //execute scipt to listen to the answer
+    exec('sh ./scripts/recording.sh "'+ question + '"', function (error, stdout, stderr)
+        {
+            console.log(stdout);
+            console.log(stderr);
+            if (error !== null) {
+                console.log('exec error:' + error);
+            }
+        }
+    );
+
+});
+
 router.get('/finishTest', function(req, res, next) {
     console.log('/finishTest');
     res.redirect('/');
