@@ -58,7 +58,6 @@ h1#title{
 }
 
 .buttonIcon {
-  background-color: #34A853;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -68,8 +67,16 @@ h1#title{
   cursor: pointer;
 }
 
-.buttonIcon:hover {
+.buttonGreen:hover {
   background-color: #318F4A;
+}
+
+.buttonGreen {
+  background-color: #34A853;
+}
+
+.buttonGrey {
+  background-color: #555555;
 }
 
 .buttonRed {

@@ -22,11 +22,11 @@ block content
                         td= (i + 1)
                         td= mongo_result.intitule
                         td
-                            button(class='playQuestion buttonIcon', data-questionid="" + mongo_result._id + "")
+                            button(class='playQuestion buttonIcon buttonGreen', data-questionid="" + mongo_result._id + "")
                                 span(class="fa fa-play-circle fa-4")
 
                         td(id='playResponse-'+ mongo_result._id)
-                            button(class='playReponse buttonIcon buttonOrange', data-questionid="" + mongo_result._id + "", disabled="disabled")
+                            button(class='playReponse buttonIcon buttonGrey', data-questionid="" + mongo_result._id + "", disabled="disabled")
                                 span(class="fa fa-microphone-slash", aria-hidden="true")
                         td(id='td' + mongo_result._id)= mongo_result.resultat
         he
@@ -87,14 +87,14 @@ block content
                 var parameters = {'questionId': id};
                 var tdResponse = $('#playResponse-'+id);
 
+                $(this).prop("disabled", true);
                 tdResponse.find('button span').removeClass('fa-microphone-slash');
+                tdResponse.find('button span').removeClass('buttonGrey');
+                tdResponse.find('button span').addClass('buttonOrange');
                 tdResponse.find('button span').addClass('fa-spinner faa-spin animated');
 
                 //call for get the data from arduino
                 $.get('/test/playQuestion/', parameters, function () {
-
-
-                    console.log(tdResponse.find('button>span'));
                     tdResponse.find('button span').removeClass('fa-spinner faa-spin animated');
                     tdResponse.find('button span').addClass('fa-microphone');
                     tdResponse.find('button').prop("disabled", false);
@@ -105,9 +105,12 @@ block content
             $('.playReponse').on('click', function () {
                 var parameters = {'questionId': $(this).data('questionid')};
 
+                $(this).remove('fa-microphone');
+                $(this).addClass('fa-volume-up');
                 //call for get the data from arduino
                 $.get('/test/playReponse/', parameters, function () {
-
+                    $(this).remove('fa-volume-up');
+                    $(this).addClass('fa-microphone');
                 });
             });
 
