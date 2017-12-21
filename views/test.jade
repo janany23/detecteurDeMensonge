@@ -58,31 +58,12 @@ block content
 
             //listen on the data receive by the arduino
             socket.on('data', function (data) {
-                console.log('question :' + data.question + ', resultat : ' + data.resultat + ', percent: ' + data.percent);
+                console.log('question :' + data.question + ', resultat : ' + data.resultat);
                 var question = data.question;
                 var isLie = data.resultat;
-                var value = data.percent;
                 var tdResponse = $('#playResponse-'+question);
 
-                var classProgressBar;
-                var resultat;
-
-                //calculate result for progress bar
-                if (isLie == true) {
-                    classProgressBar = "progress-bar-danger";
-                    resultat = 'Mensonge';
-                } else {
-                    classProgressBar = "progress-bar-success";
-                    resultat = 'Vérité';
-                }
-
-                $("#td" + question).append('' +
-                        '<div class="progress">' +
-                        '<div class= "progress-bar ' + classProgressBar + '" role="progressbar" ' +
-                        'aria-valuenow = "' + value + '" aria-valuemin = "0" aria-valuemax = "100" style = "width:' + value + '%" >' +
-                        value + '% ' + resultat +
-                        '</div>' +
-                        '</div>');
+                $("#td" + question).append(isLie);
 
                 tdResponse.find('button span').removeClass('fa-spinner faa-spin animated');
                 tdResponse.find('button span').addClass('fa-microphone');
