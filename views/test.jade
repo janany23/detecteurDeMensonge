@@ -66,13 +66,13 @@ block content
 
                 var classProgressBar;
                 var resultat;
-                if (isLie && percent < 50) {
+                if (isLie && value < 50) {
                     classProgressBar = "progress-bar-danger";
                     resultat = 'Mensonge';
-                } else if (isLie && percent > 50){
+                } else if (isLie && value > 50){
                     classProgressBar = "progress-bar-success";
                     resultat = 'Vérité';
-                } else if (!isLie && percent < 50) {
+                } else if (!isLie && value < 50) {
                     classProgressBar = "progress-bar-danger";
                     resultat = 'Mensonge';
                 } else {
