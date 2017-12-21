@@ -55,7 +55,7 @@ router.get('/playQuestion', function(req, res, next) {
                 var responseArdui = JSON.parse(body);
                 console.log(responseArdui[0].resultat);
 
-                //execute scipt to listen to the answer
+                //execute scipt to record to the answer
                 exec('sh ./scripts/recording.sh '+ id, function (error, stdout, stderr)
                     {
                         console.log(stdout);
@@ -82,9 +82,18 @@ router.get('/playQuestion', function(req, res, next) {
 router.get('/playReponse', function(req, res, next) {
     var id = req.query.questionId;
 
+    //execute scipt to record to the answer
+    exec('sh ./scripts/playAnswer.sh '+ id + '.wav', function (error, stdout, stderr)
+        {
+            console.log(stdout);
+            console.log(stderr);
+            if (error !== null) {
+                console.log('exec error:' + error);
+            }
+        }
+    );
 
-
-
+    res.redirect('/');
 });
 
 router.get('/finishTest', function(req, res, next) {
