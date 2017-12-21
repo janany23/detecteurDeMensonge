@@ -66,14 +66,20 @@ block content
 
                 var classProgressBar;
                 var resultat;
-                if (isLie) {
+                if (isLie && percent < 50) {
+                    classProgressBar = "progress-bar-danger";
+                    resultat = 'Mensonge';
+                } else if (isLie && percent > 50){
+                    classProgressBar = "progress-bar-success";
+                    resultat = 'Vérité';
+                } else if (!isLie && percent < 50) {
                     classProgressBar = "progress-bar-danger";
                     resultat = 'Mensonge';
                 } else {
                     classProgressBar = "progress-bar-success";
-                    value = 100 - value;
                     resultat = 'Vérité';
                 }
+
                 $("#td" + question).append('' +
                         '<div class="progress">' +
                         '<div class= "progress-bar ' + classProgressBar + '" role="progressbar" ' +
