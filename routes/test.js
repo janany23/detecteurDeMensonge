@@ -56,7 +56,7 @@ router.get('/playQuestion', function(req, res, next) {
                 console.log(responseArdui[0].resultat);
 
                 //execute scipt to record to the answer
-                exec('sh ./scripts/recording.sh '+ id + '', function (error, stdout, stderr)
+                exec('sh ./scripts/recording.sh '+ id, function (error, stdout, stderr)
                     {
                         console.log(stdout);
                         console.log(stderr);
