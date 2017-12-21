@@ -40,27 +40,28 @@ router.get('/playQuestion', function(req, res, next) {
         console.log(question);
 
         //execute scipt to listen to the question
-        exec('sh ./scripts/dit.sh "'+ question + '"', function (error, stdout, stderr)
+        exec('sh ./scripts/dit.sh "'+ question + '"', function (res, deferred)
             {
                 console.log('dit.sh');
-                console.log(stdout);
-                console.log(stderr);
-                if (error !== null) {
+                console.log(res.stdout);
+                if (res.err !== null) {
                     console.log('exec error1 :');
-                    console.log(error);
+                    console.log(res.err);
                 }
                 return true;
             }
         ).then(function(r) {
             if (r) {
-                //execute scipt to record to the answer
-                exec('sh ./scripts/recording.sh '+ id, function (error, stdout, stderr)
+                //execute script to record to the answer
+                exec('sh ./scripts/recording.sh '+ id, function (res, deferred)
                     {
-                        console.log(stdout);
-                        console.log(stderr);
-                        if (error !== null) {
-                            console.log('exec error2 :' + error);
+                        console.log('recording.sh');
+                        console.log(res.stdout);
+                        if (res.err !== null) {
+                            console.log('exec error1 :');
+                            console.log(res.err);
                         }
+
                     }
                 );
             }
