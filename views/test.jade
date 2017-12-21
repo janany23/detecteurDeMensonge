@@ -27,7 +27,7 @@ block content
 
                         td
                             button(class='playReponse buttonIcon buttonOrange', data-questionid="" + mongo_result._id + "", disabled="disabled")
-                                span(class="fa fa fa-microphone-slash", aria-hidden="true")
+                                span(class="fa fa-microphone-slash", aria-hidden="true")
                         td(id='td' + mongo_result._id)= mongo_result.resultat
         he
         button(id='finishTest', class='buttonSecondary buttonRed') Terminer le test
@@ -87,6 +87,20 @@ block content
 
                 //call for get the data from arduino
                 $.get('/test/playQuestion/', parameters, function () {
+                });
+            });
+
+            //click on play question
+            $('.playReponse').on('click', function () {
+                var parameters = {'questionId': $(this).data('questionid')};
+
+                $(this).removeClass('fa-microphone-slash');
+                $(this).addClass('fa-spinner faa-spin animated');
+
+                //call for get the data from arduino
+                $.get('/test/playReponse/', parameters, function () {
+                    $(this).removeClass('fa-spinner faa-spin animated');
+                    $(this).addClass('fa-microphone');
                 });
             });
 
