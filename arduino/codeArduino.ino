@@ -1,3 +1,4 @@
+
 // -- INCLUDE --
 #include <ESP8266WiFi.h>
 #include <ArduinoHttpClient.h>
@@ -16,7 +17,6 @@ WiFiServer server(80);
 
 
 int L3 = 2;  // LED Verte
-int L2 = 4;  // LED blanche
 int L1 = 5;  // LED rouge
 int response = 0;
 const int buttonPin = 15;
@@ -52,9 +52,7 @@ void setup()
 
   // Init component
   pinMode(L3, OUTPUT);
-  pinMode(L2, OUTPUT);
   pinMode(L1, OUTPUT);
-  pinMode(buttonPin, INPUT);
   long sum = 0;
   delay(1000);
 
@@ -65,13 +63,9 @@ void setup()
     sum += response;
     digitalWrite(L3, HIGH);
     delay(10);
-    digitalWrite(L2, HIGH);
-    delay(10);
     digitalWrite(L1, HIGH);
     delay(10);
     digitalWrite(L3, LOW);
-    delay(10);
-    digitalWrite(L2, LOW);
     delay(10);
     digitalWrite(L1, LOW);
     delay(10);
@@ -83,7 +77,6 @@ void setup()
 
   // LED OFF
   digitalWrite(L1, LOW);
-  digitalWrite(L2, LOW);
   digitalWrite(L3, LOW);
 }
 
@@ -137,4 +130,3 @@ void loop()
   delay(100);
 
 }
-
